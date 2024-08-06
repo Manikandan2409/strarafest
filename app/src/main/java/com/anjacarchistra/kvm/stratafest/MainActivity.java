@@ -1,6 +1,7 @@
 package com.anjacarchistra.kvm.stratafest;
 
 import static com.anjacarchistra.kvm.stratafest.api.Constants.EMAIL_KEY;
+import static com.anjacarchistra.kvm.stratafest.api.Constants.NAME_KEY;
 import static com.anjacarchistra.kvm.stratafest.api.Constants.PASSWORD_KEY;
 import static com.anjacarchistra.kvm.stratafest.api.Constants.PREFS_NAME;
 
@@ -19,10 +20,13 @@ import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
+import com.anjacarchistra.kvm.stratafest.api.QrValidationhandler;
+import com.anjacarchistra.kvm.stratafest.handler.QRCallback;
+import com.anjacarchistra.kvm.stratafest.util.Helper;
 import com.journeyapps.barcodescanner.ScanContract;
 import com.journeyapps.barcodescanner.ScanOptions;
 
-public class MainActivity extends AppCompatActivity{
+public class MainActivity extends AppCompatActivity implements QRCallback {
 
     private Button register;
     private  Button login;
@@ -32,7 +36,7 @@ public class MainActivity extends AppCompatActivity{
       super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         SharedPreferences sharedPreferences = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
-        String email = sharedPreferences.getString(EMAIL_KEY, null);
+        String email = sharedPreferences.getString(NAME_KEY, null);
         String password = sharedPreferences.getString(PASSWORD_KEY, null);
         if (email!=null&& password !=null){
             startActivity(new Intent(MainActivity.this,Dashboard.class));
@@ -94,10 +98,22 @@ public class MainActivity extends AppCompatActivity{
         }
             else {
 
-                Toast.makeText(this, result.getContents(), Toast.LENGTH_SHORT).show();
-            startActivity(new Intent(MainActivity.this,Register.class));
+            String teamid = Helper.decode(result.getContents()).split(",")[0];
+            Toast.makeText(this, teamid, Toast.LENGTH_SHORT).show();
+            new QrValidationhandler(this,this,Integer.parseInt(teamid)).execute();
             }
-
     });
 
+    @Override
+    public void onSuccess(String message) {
+       Intent i = new Intent(MainActivity.this,Register.class);
+       i.putExtra("encodevalue",message);
+       startActivity(i);
+
+    }
+
+    @Override
+    public void onError(String errorMessage) {
+        Toast.makeText(this, errorMessage, Toast.LENGTH_SHORT).show();
+    }
 }

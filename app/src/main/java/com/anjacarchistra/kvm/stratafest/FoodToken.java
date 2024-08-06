@@ -1,6 +1,7 @@
 package com.anjacarchistra.kvm.stratafest;
 
 import static com.anjacarchistra.kvm.stratafest.api.Constants.EMAIL_KEY;
+import static com.anjacarchistra.kvm.stratafest.api.Constants.NAME_KEY;
 import static com.anjacarchistra.kvm.stratafest.api.Constants.PASSWORD_KEY;
 import static com.anjacarchistra.kvm.stratafest.api.Constants.PREFS_NAME;
 
@@ -25,8 +26,8 @@ public class FoodToken extends AppCompatActivity {
 
         qrcode = findViewById(R.id.generatedQR);
         SharedPreferences sharedPreferences = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
-        String email = sharedPreferences.getString(EMAIL_KEY, null);
-        String password = sharedPreferences.getString(PASSWORD_KEY, null);
+        String email = sharedPreferences.getString("lot", null);
+        String password = sharedPreferences.getString(NAME_KEY, null);
         Bitmap qrbitmap=qrGenerator(Helper.encode(email+","+password));
         qrcode.setImageBitmap(qrbitmap);
     }

@@ -6,24 +6,70 @@
     android:layout_height="match_parent"
     tools:context=".FoodToken">
 
-
-    <androidx.cardview.widget.CardView
-        android:layout_width="match_parent"
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_margin="30dp"
-        app:cardCornerRadius="30dp"
-        app:cardElevation="20dp"
+        android:background="?attr/colorPrimary"
+        app:logo="@drawable/baseline_food"
+        app:title="Food Token"
+        app:titleMarginStart="23dp"
+        app:titleMarginTop="14dp"
+        app:titleTextColor="@color/white"
+        app:titleTextAppearance="@style/CustomToolbarTitleText"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:layout_marginBottom="30dp"
+        android:text="Time : 1:00PM"
+        android:textStyle="bold"
+        android:textColor="@color/blue"
+        android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-                <ImageView
-            android:layout_marginTop="10dp"
-            android:layout_height="260dp"
-            android:id="@+id/generatedQR"
-            android:layout_width="match_parent"/>
+        app:layout_constraintTop_toBottomOf="@+id/cardView"
+        app:layout_constraintVertical_bias="0.325" />
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Venue : Auditorium"
+        android:textStyle="bold"
+        android:textSize="20sp"
+        android:textColor="@color/blue"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView"
+        app:layout_constraintVertical_bias="0.087" />
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardView"
+        android:layout_width="250dp"
+        android:layout_height="250dp"
+        android:layout_margin="30dp"
+        android:layout_marginBottom="200dp"
+        app:cardCornerRadius="30dp"
+        app:cardElevation="20dp"
+        app:layout_constraintBottom_toBottomOf="@+id/textView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/generatedQR"
+            android:layout_width="match_parent"
+            android:layout_height="260dp"
+            android:layout_marginTop="-4dp" />
 
     </androidx.cardview.widget.CardView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
+

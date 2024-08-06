@@ -2,9 +2,11 @@ package com.anjacarchistra.kvm.stratafest.api;
 
 import android.content.Context;
 import android.os.AsyncTask;
+import android.util.Log;
 
+import com.anjacarchistra.kvm.stratafest.api.Constants;
 import com.anjacarchistra.kvm.stratafest.dto.Event;
-import com.anjacarchistra.kvm.stratafest.handler.ApiCallback;
+import com.anjacarchistra.kvm.stratafest.handler.EventCallback;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -13,25 +15,24 @@ import org.json.JSONObject;
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
-public class EventHandler extends AsyncTask<JSONObject, Void, String> {
+public class EventHandler extends AsyncTask<Void, Void, String> {
     private Context context;
-    private ApiCallback callback;
-    private String endpoint = Constants.ENDPOINT + "/get-events.php";
+    private EventCallback callback;
+    private String endpoint = Constants.ENDPOINT + "/get_events.php";
 
-    public EventHandler(Context context, ApiCallback callback) {
+    public EventHandler(Context context, EventCallback callback) {
+        Log.d("EVENT HANDLER","GET EVENTS FROM DB");
         this.context = context;
         this.callback = callback;
     }
 
     @Override
-    protected String doInBackground(JSONObject... params) {
-        JSONObject jsonObject = params[0];
+    protected String doInBackground(Void... voids) {
         String response = "";
 
         try {
@@ -40,12 +41,6 @@ public class EventHandler extends AsyncTask<JSONObject, Void, String> {
             conn.setRequestMethod("GET");
             conn.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
             conn.setDoOutput(true);
-
-            // Write JSON data to output stream
-            OutputStream os = conn.getOutputStream();
-            os.write(jsonObject.toString().getBytes("UTF-8"));
-            os.flush();
-            os.close();
 
             // Read response
             int responseCode = conn.getResponseCode();
@@ -73,19 +68,21 @@ public class EventHandler extends AsyncTask<JSONObject, Void, String> {
     @Override
     protected void onPostExecute(String result) {
         super.onPostExecute(result);
-        System.out.println(result);
         try {
             JSONArray jsonArray = new JSONArray(result);
             List<Event> events = new ArrayList<>();
-            System.out.println(jsonArray);
             for (int i = 0; i < jsonArray.length(); i++) {
                 JSONObject jsonObject = jsonArray.getJSONObject(i);
                 int eventId = jsonObject.getInt("eventid");
                 String eventName = jsonObject.getString("evname");
                 int maxParticipant = jsonObject.getInt("maxparticipant");
                 int minParticipant = jsonObject.getInt("minparticipant");
+                String time = jsonObject.getString("evtime");
+                String venue = jsonObject.getString("venuename");
 
-                Event event = new Event(eventId, eventName, maxParticipant, minParticipant);
+                Event event = new Event(eventId, eventName, maxParticipant, minParticipant,time,venue);
+                Log.d("EVENT",event.toString());
+
                 events.add(event);
             }
 

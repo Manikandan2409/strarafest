@@ -29,7 +29,7 @@
                 android:layout_gravity="center_horizontal"
                 android:text="Login"
                 android:textAlignment="center"
-                android:textColor="@color/purple_200"
+                android:textColor="@color/blue"
                 android:textSize="34sp"
                 android:textStyle="bold" />
 
@@ -38,8 +38,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="30dp"
-
-                android:hint="Enter Email"
+                android:background="@drawable/border"
+                android:drawableLeft="@drawable/baseline_person_24"
+                android:hint="Participant Name"
+                android:drawablePadding="8dp"
                 android:padding="12dp" />
 
             <EditText
@@ -47,17 +49,29 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
-                android:hint="Enter Password"
-                android:inputType="textPassword"
+                android:background="@drawable/border"
+                android:drawableLeft="@drawable/baseline_lock_24"
+                android:hint="Participant Password"
+                android:drawablePadding="8dp"
                 android:padding="12dp" />
+
+            <Spinner
+                android:id="@+id/lotSpinner"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:padding="14dp"
+                style="@style/CustomSpinnerStyle"/>
 
             <Button
                 android:id="@+id/loginButton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
-                android:backgroundTint="@color/purple_200"
-                android:text="Login"/>
+                android:background="@drawable/borderbtn"
+                android:backgroundTint="@color/blue"
+                android:textColor="@color/white"
+                android:text="Login" />
 
         </LinearLayout>
     </androidx.cardview.widget.CardView>

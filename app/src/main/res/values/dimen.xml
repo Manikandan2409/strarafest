@@ -1,0 +1,11 @@
+<resources>
+
+
+    <dimen name="edit_text_padding_left">16dp</dimen>
+    <dimen name="edit_text_padding_top">10dp</dimen>
+    <dimen name="edit_text_padding_right">16dp</dimen>
+    <dimen name="edit_text_padding_bottom">10dp</dimen>
+<!--   results-->
+    <dimen name="table_padding">25dp</dimen>
+    <dimen name="image_size">36dp</dimen>
+</resources>

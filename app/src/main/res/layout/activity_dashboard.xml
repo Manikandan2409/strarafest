@@ -6,76 +6,104 @@
     android:layout_height="match_parent"
     tools:context=".Dashboard">
 
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="?attr/colorPrimary"
+        app:logo="@drawable/baseline_dashboard_24"
+        app:title="Dashboard"
+        app:titleMarginStart="23dp"
+        app:titleTextColor="@color/white"
+        app:titleTextAppearance="@style/CustomToolbarTitleText"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+
 
     <Button
         android:id="@+id/button"
-        android:layout_width="130dp"
-        android:layout_height="130dp"
-        android:layout_marginStart="30dp"
-        android:layout_marginTop="100dp"
-        android:layout_marginEnd="100dp"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="50dp"
         android:background="@drawable/dashboardborder"
         android:drawableTop="@drawable/baseline_person_pin_24"
+        android:paddingTop="10dp"
         android:text="Profile"
-        app:layout_constraintEnd_toStartOf="@+id/button2"
-        app:layout_constraintHorizontal_bias="0.0"
+        android:textAlignment="center"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/toolbar" />
 
     <Button
         android:id="@+id/button2"
-        android:layout_width="130dp"
-        android:layout_height="130dp"
-        android:layout_marginTop="100dp"
-        android:layout_marginEnd="30dp"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_marginTop="50dp"
+        android:layout_marginEnd="20dp"
         android:background="@drawable/dashboardborder"
         android:drawableTop="@drawable/baseline_schedule_send_24"
+        android:paddingTop="12dp"
         android:text="Time Schedule"
+        android:textAlignment="center"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/toolbar" />
 
     <Button
         android:id="@+id/button3"
-        android:layout_width="130dp"
-        android:layout_height="130dp"
-        android:layout_marginStart="30dp"
-        android:layout_marginTop="60dp"
-        android:layout_marginEnd="100dp"
-        android:layout_marginBottom="60dp"
-
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="50dp"
         android:background="@drawable/dashboardborder"
         android:drawableTop="@drawable/baseline_food_bank_24"
+        android:paddingTop="6dp"
         android:text="Food Token"
-        app:layout_constraintBottom_toTopOf="@+id/button5"
-        app:layout_constraintEnd_toStartOf="@+id/button4"
-        app:layout_constraintHorizontal_bias="0.0"
+        android:textAlignment="center"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/button" />
 
     <Button
         android:id="@+id/button4"
-        android:layout_width="130dp"
-        android:layout_height="130dp"
-        android:layout_marginTop="60dp"
-        android:layout_marginEnd="30dp"
-        android:layout_marginBottom="60dp"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_marginTop="50dp"
+        android:layout_marginEnd="20dp"
         android:background="@drawable/dashboardborder"
-
         android:drawableTop="@drawable/baseline_newspaper_24"
+        android:paddingTop="14dp"
         android:text="Certificate"
-        app:layout_constraintBottom_toTopOf="@+id/button5"
+        android:textAlignment="center"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/button2" />
 
     <Button
-        android:id="@+id/button5"
-        android:layout_width="130dp"
-        android:layout_height="130dp"
-        android:layout_marginBottom="150dp"
+        android:id="@+id/button6"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_marginTop="50dp"
+        android:layout_marginEnd="20dp"
         android:background="@drawable/dashboardborder"
         android:drawableTop="@drawable/baseline_person_remove_24"
+        android:paddingTop="10dp"
         android:text="Logout"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:textAlignment="center"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/button4" />
+
+    <Button
+        android:id="@+id/button5"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="50dp"
+        android:background="@drawable/dashboardborder"
+        android:drawableTop="@drawable/baseline_find_in_page_24"
+        android:paddingTop="10dp"
+        android:text="Result"
+        android:textAlignment="center"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button3" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

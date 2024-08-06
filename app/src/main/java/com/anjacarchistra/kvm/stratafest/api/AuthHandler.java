@@ -3,9 +3,9 @@ package com.anjacarchistra.kvm.stratafest.api;
 import android.content.Context;
 import android.os.AsyncTask;
 
-import com.anjacarchistra.kvm.stratafest.Login;
-import com.anjacarchistra.kvm.stratafest.dto.Event;
-import com.anjacarchistra.kvm.stratafest.handler.ApiCallback;
+import com.anjacarchistra.kvm.stratafest.dto.Profile;
+import com.anjacarchistra.kvm.stratafest.handler.AuthCallback;
+import com.anjacarchistra.kvm.stratafest.util.Helper;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -20,26 +20,24 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
-public class LoginHandler extends AsyncTask<JSONObject, Void, String> {
-    private  Context context ;
-    private ApiCallback callback;
-    private String email;
+public class AuthHandler extends AsyncTask<Void, Void, String> {
+    private Context context;
+    private AuthCallback callback;
+    private static  String endpoint = Constants.ENDPOINT + "/auth.php";
+    private int lotid;
+    private String name;
     private String password;
 
-    private String endpoint = Constants.ENDPOINT + "/login.php";
-
-
-
-    public LoginHandler(Context context, ApiCallback callback, String email, String password) {
+    public AuthHandler(Context context, AuthCallback callback, int lotid, String name, String password) {
         this.context = context;
         this.callback = callback;
-        this.email = email;
+        this.lotid = lotid;
+        this.name = name;
         this.password = password;
     }
 
     @Override
-    protected String doInBackground(JSONObject... params) {
-        JSONObject jsonObject = params[0];
+    protected String doInBackground(Void... params) {
         String response = "";
 
         try {
@@ -48,6 +46,12 @@ public class LoginHandler extends AsyncTask<JSONObject, Void, String> {
             conn.setRequestMethod("POST");
             conn.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
             conn.setDoOutput(true);
+
+            // Create JSON data
+            JSONObject jsonObject = new JSONObject();
+            jsonObject.put("lotid", lotid);
+            jsonObject.put("pname", name);
+            jsonObject.put("password", password);
 
             // Write JSON data to output stream
             OutputStream os = conn.getOutputStream();
@@ -83,34 +87,25 @@ public class LoginHandler extends AsyncTask<JSONObject, Void, String> {
         super.onPostExecute(result);
         System.out.println(result);
         try {
-            JSONArray jsonArray = new JSONArray(result);
-            List<Profile> events = new ArrayList<>();
-            if (jsonArray.length() == 0) {
-                callback.onError("No matching record found");
-                return;
-            }
-            System.out.println(jsonArray);
-            for (int i = 0; i < jsonArray.length(); i++) {
-                JSONObject jsonObject = jsonArray.getJSONObject(i);
-                int participantId = jsonObject.getInt("participantid");
-                String name = jsonObject.getString("name");
-                String collegeName = jsonObject.getString("collegename");
-                String departmentName = jsonObject.getString("departmentname");
-                String eventName = jsonObject.getString("evname");
-                String email = jsonObject.getString("email");
-                String password = jsonObject.getString("password");
+            JSONObject jsonObject = new JSONObject(result);
 
-                // Assuming Event class can hold participant details, modify if necessary
-                Profile event = new Profile(participantId, name, collegeName, departmentName, eventName, email, password);
-                events.add(event);
-            }
+            // Extract the fields from the JSON object
+            String lotid = jsonObject.getString("parid");
+            String name = jsonObject.getString("name");
+            String password = this.password; // If password is not part of the response, handle accordingly
+            String collegename = jsonObject.getString("clgname");
+            String deptname = jsonObject.getString("deptname");
+            String eventid = jsonObject.getString("eventid");
+            String time = jsonObject.getString("eventtime");
+            String venue = jsonObject.getString("eventvenue");
+            Profile profile = new Profile(lotid, name, password, eventid, time, venue, collegename, deptname);
 
             // Notify the callback with the result
-           // callback.onSuccess(events);
+            callback.onSuccess(profile);
 
         } catch (JSONException e) {
             e.printStackTrace();
-            callback.onError("Failed to parse JSON");
+            callback.onError(result);
         }
     }
 }

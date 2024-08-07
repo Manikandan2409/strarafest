@@ -100,7 +100,12 @@ public class MainActivity extends AppCompatActivity implements QRCallback {
 
             String teamid = Helper.decode(result.getContents()).split(",")[0];
             Toast.makeText(this, teamid, Toast.LENGTH_SHORT).show();
-            new QrValidationhandler(this,this,Integer.parseInt(teamid)).execute();
+
+            // testing purpose
+            Intent i = new Intent(MainActivity.this,RegisterDescription.class);
+            i.putExtra("encodevalue",result.getContents());
+            startActivity(i);
+            //      new QrValidationhandler(this,this,Integer.parseInt(teamid)).execute();
             }
     });
 
